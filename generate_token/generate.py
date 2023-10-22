@@ -27,4 +27,4 @@ signature = hmac.new(
 
 JWT = f'{b64_header}.{b64_payload}.{base64.urlsafe_b64encode(signature).decode()}'
 
-proc = subprocess.run(["/home/marciano/script/generate_token/token.sh  %s"% (JWT)], shell=True)
+proc = subprocess.run(["/home/user/script/generate_token/token.sh  %s"% (JWT)], shell=True)
