@@ -28,3 +28,23 @@ signature = hmac.new(
 JWT = f'{b64_header}.{b64_payload}.{base64.urlsafe_b64encode(signature).decode()}'
 
 proc = subprocess.run(["/home/user/script/generate_token/token.sh  %s"% (JWT)], shell=True)
+
+#import jwt
+
+#secret_key = '123'
+
+#payload_data = {
+#    "name": "Seu Nome",
+#    "code": 109,
+#    "mail": "exemplo@teste.com.br",
+#    "password": "0",
+#    "roles": "0, 1",
+#}
+
+#token = jwt.encode(
+#    payload=payload_data,
+#    key=secret_key
+#)
+
+#print(token)
+
