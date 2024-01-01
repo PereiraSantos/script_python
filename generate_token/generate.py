@@ -35,7 +35,7 @@ proc = subprocess.run(["/home/user/script/generate_token/token.sh  %s"% (JWT)], 
 
 #payload_data = {
 #    "name": "Seu Nome",
-#    "code": 109,
+#    "code": 1,
 #    "mail": "exemplo@teste.com.br",
 #    "password": "0",
 #    "roles": "0, 1",
