@@ -153,24 +153,65 @@ def load_database_device():
     clean_log()
 
     if checkbuttonValue.get() == True and task.get() == 4:
-        cmd = 'comm\command.bat 3 '+device.get() +' '+selectProjectUser.get()+' '+selectDatabaseUser.get() +' '+folder.get().replace('Salvar em ','') + ''
-        os.system(cmd)
+        if device.get() == '': 
+            folder.set("SEM DEVICE SELECIONADO!!!!!!!!!!!!!!!!!!")
+            return
         
-        cmdShared = 'comm\command.bat 8 '+device.get() +' '+selectProjectUser.get()+' '+selectSharedUser.get() +' '+folder.get().replace('Salvar em ','') + ''
-        os.system(cmdShared)
+        if selectProjectUser.get() == '': 
+            folder.set("SEM PROJETO SELECIONADO!!!!!!!!!!!!!!!!!!")
+            return
+        
+        if folder.get().count('Salvar') == 0: 
+            folder.set("SEM PASTA SELECIONADO!!!!!!!!!!!!!!!!!!")
+            return
+        
+        if selectDatabaseUser.get() != '': 
+            cmd = 'comm\command.bat 3 '+device.get() +' '+selectProjectUser.get()+' '+selectDatabaseUser.get() +' '+folder.get().replace('Salvar em ','') + ''
+            os.system(cmd)
+        
+        if selectSharedUser.get() != '': 
+            cmdShared = 'comm\command.bat 8 '+device.get() +' '+selectProjectUser.get()+' '+selectSharedUser.get() +' '+folder.get().replace('Salvar em ','') + ''
+            os.system(cmdShared)
     elif checkbuttonValue.get() == True and task.get() == 1:
-        cmd = 'comm\command.bat 5 '+device.get() +' '+folder.get().replace('Enviar ','') +''
-        os.system(cmd)
+        if device.get() != '' and folder.get().count('Enviar'):
+            cmd = 'comm\command.bat 5 '+device.get() +' '+folder.get().replace('Enviar ','') +''
+            os.system(cmd)
+        else:
+            if device.get() == '':  
+                folder.set("SEM DEVICE SELECIONADO!!!!!!!!!!!!!!!!!!")
+            if folder.get().count('Enviar') == 0: 
+                folder.set("SEM PASTA!!!!!!!!!!!!!!!!!!")
+            
+            return
     elif checkbuttonValue.get() == True and task.get() == 2:
-        cmd = 'comm\command.bat 9 '+device.get() +' '+folder.get().replace('Enviar ','') +' '+selectProjectUser.get() +''
-        os.system(cmd)
+        if selectProjectUser.get() != '' and device.get() != '' and folder.get().count('Enviar'):
+            cmd = 'comm\command.bat 9 '+device.get() +' '+folder.get().replace('Enviar ','') +' '+selectProjectUser.get() +''
+            os.system(cmd)
+        else:
+            setMessageUser()
+            return
     elif checkbuttonValue.get() == True and task.get() == 3:
-        cmd = 'comm\command.bat 10 '+device.get() +' '+folder.get().replace('Enviar ','') +' '+selectProjectUser.get() +''
-        os.system(cmd)
+        if selectProjectUser.get() != '' and device.get() != '' and folder.get().count('Enviar'):
+            cmd = 'comm\command.bat 10 '+device.get() +' '+folder.get().replace('Enviar ','') +' '+selectProjectUser.get() +''
+            os.system(cmd)
+        else:
+            setMessageUser()
+            return
 
     buttonConclud.set('Finalisado')
     get_log()
 
+def setMessageUser():
+    if device.get() == '':  
+        folder.set("SEM DEVICE SELECIONADO!!!!!!!!!!!!!!!!!!")
+        return
+     
+    if selectProjectUser.get() == '': 
+        folder.set("SEM PROJETO SELECIONADO!!!!!!!!!!!!!!!!!!")
+        return
+   
+    if folder.get().count('Enviar') == 0: 
+        folder.set("SEM PASTA!!!!!!!!!!!!!!!!!!")
     
 def get_log():
     with open("text/log.txt", "r") as arquivo:
@@ -179,8 +220,8 @@ def get_log():
     folder.set(logs)
 
 def clean_log():
-    cmd = 'comm\command.bat 6 '
-    os.system(cmd)
+    with open("text\log.txt", "w") as f:
+        pass
 
 def list_database_project():
     cmd = 'comm\command.bat 4 '+device.get() +' '+selectProjectUser.get()+''
