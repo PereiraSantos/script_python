@@ -5,7 +5,6 @@ if %1 == 2 goto get_folder
 if %1 == 3 goto save_arquive
 if %1 == 4 goto get_database
 if %1 == 5 goto set_file_download
-if %1 == 6 goto clean_log
 if %1 == 7 goto get_share
 if %1 == 8 goto save_arquive_shared
 if %1 == 9 goto set_file_database
@@ -45,10 +44,6 @@ goto close
 
 :set_file_shared
 adb -s %2 push %3 /data/data/%4/shared_prefs/ >> "text\log.txt"
-goto close
-
-:clean_log
-echo / > "text\log.txt"
 goto close
 
 :close
